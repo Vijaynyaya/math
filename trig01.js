@@ -11,13 +11,15 @@ document.addEventListener("DOMContentLoaded", function () {
     /**
      * draw a sine wave when the hypotenuse is 100 units long.
     */
-    for (var radians = 0; radians < Math.PI * 2; radians += 0.25) {
-        var sine = Math.sin(radians);
-        var y = sine * 100;
-        var x = radians * 100;
-        // draw a point
-        ctx.fillRect(x, y, 3, 3);
-        computation["radians(".concat(radians, ")")] = { sine: sine, x: x, y: y };
+    for (var h = 100; h < 1000; h += 100) {
+        for (var radians = 0; radians < Math.PI * 2; radians += 0.01) {
+            var sine = Math.sin(radians);
+            var y = sine * h;
+            var x = radians * h;
+            // draw a point
+            ctx.fillRect(x, y, 3, 3);
+            computation["radians(".concat(radians, ")")] = { sine: sine, x: x, y: y };
+        }
     }
     // log the values computed values in browser's console.
     console.table(computation);
