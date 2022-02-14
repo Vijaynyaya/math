@@ -4,29 +4,44 @@ document.addEventListener("DOMContentLoaded", function () {
     var ctx = canvas.getContext("2d");
     var width = canvas.width = window.innerWidth;
     var height = canvas.height = window.innerHeight;
+    // Shadow
+    ctx.shadowColor = 'rgba(125, 255, 0, .8)';
+    ctx.shadowBlur = 9;
     var centerY = height / 2;
     var centerX = width / 2;
     var offset = height / 4;
     // speeds
-    var _a = [0.033, 0.066, 0.1], slowS = _a[0], fastS = _a[1], fasterS = _a[2];
+    var speed = 0.05;
     // angles
-    var _b = [0, 0, 0], slowA = _b[0], fastA = _b[1], fasterA = _b[2];
+    var angle = 0;
     render();
     function render() {
-        // vertical translation
-        var yslow = centerY + Math.sin(slowA) * offset;
-        var yfast = centerY + Math.sin(fastA) * offset;
-        var yfaster = centerY + Math.sin(fasterA) * offset;
-        ctx.clearRect(0, 0, width, height);
-        // draw circles
+        // Background
+        var gradient = ctx.createLinearGradient(0, height / 20, 0, height);
+        // Add three color stops
+        gradient.addColorStop(0, 'lightgreen');
+        gradient.addColorStop(.7, 'lightgrey');
+        gradient.addColorStop(1, 'lightgreen');
+        // Set the fill style and draw a rectangle
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, width, height);
+        // Vertical translation
+        var ysin = centerY + Math.sin(angle) * offset;
+        var ycos = centerY + Math.cos(angle) * offset;
+        var ytan = centerY + Math.tan(angle) * offset;
+        // Draw circles
+        ctx.fillStyle = "#120";
         ctx.beginPath();
-        ctx.arc(width / 4, yslow, 50, 0, Math.PI * 2, false);
-        ctx.arc(width / 2, yfast, 50, 0, Math.PI * 2, false);
-        ctx.arc(3 * (width / 4), yfaster, 50, 0, Math.PI * 2, false);
+        ctx.arc(width / 4, ysin, 50, 0, Math.PI * 2, false);
+        ctx.closePath();
         ctx.fill();
-        slowA += slowS;
-        fastA += fastS;
-        fasterA += fasterS;
+        ctx.arc(width / 2, ycos, 50, 0, Math.PI * 2, false);
+        ctx.closePath();
+        ctx.fill();
+        ctx.arc(3 * (width / 4), ytan, 50, 0, Math.PI * 2, false);
+        ctx.closePath();
+        ctx.fill();
+        angle += speed;
         requestAnimationFrame(render);
     }
 });
