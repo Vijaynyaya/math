@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     // setup canvas
-    var canvas = document.getElementById("canvas");
+    var canvas = document.getElementById("waves-canvas");
     var ctx = canvas.getContext("2d");
     var width = canvas.width = window.innerWidth;
     var height = canvas.height = window.innerHeight;
